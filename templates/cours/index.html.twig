@@ -1,0 +1,100 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Cours
+{% endblock %}
+
+{% block titlenumber %}
+        Cours
+{% endblock %}
+
+{% block content %}
+        <div class="col">
+         <div class="card my-4">
+                {{ form_start(form) }}
+                    {{ form_row(form.semestre) }}
+                    
+                    {{ form_widget(form.btnSave) }}
+                {{ form_end(form) }}
+            </div>
+            <div class="card my-4">
+                {{ form_start(formProf) }}
+                    {{ form_row(formProf.professeur) }}
+                    
+                    {{ form_widget(formProf.btnSave) }}
+                {{ form_end(formProf) }}
+            </div>
+
+        <div class="row row min-vh-20 bg-light text-dark">
+            <form class="searchbox" action="GET">
+                <button type="button" class="btn btn-primary">
+                <a href="{{ path('app_cours') }}" class=" link-light text-decoration-none">Ajouter un cours</a>
+                </button>
+            </form>
+
+        </div>
+
+        <div class="col-12">
+        <div class="row row min-vh-20 bg-light text-dark">
+            {# Incluez les formulaires de filtre pour Semestre, Professeur, et Classe #}
+
+        </div>
+
+
+            <div class="card my-4">
+                <table class="table table-dark">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Professeur</th>
+                            <th scope="col">Semestre</th>
+                            <th scope="col">Nombre heure effectuer</th>
+                            <th scope="col">Nombre heure globale</th>
+                            <th scope="col">Nombre heure Plannifier</th>
+                            <th scope="col">Classe</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        {% for cours in pagination ?? []  %}
+                        <tr>
+                            <td>{{ cours.id }}</td>
+                            <td>{{ cours.professeur.nomComplet }}</td>
+                            <td>{{ cours.semestre.libelle }}</td>
+                            <td>{{ cours.nombreHeureEffAt ? cours.nombreHeureEffAt.format('H:i:s') : '' }}</td>
+                            <td>{{ cours.nombreHeureGlobalAt ? cours.nombreHeureGlobalAt.format('H:i:s') : '' }}</td>
+                            <td>{{ cours.nombreHeurePlannifierAt ? cours.nombreHeurePlannifierAt.format('H:i:s') : '' }}</td>
+                           
+                            {% for cl in cours.classe %}
+                                 <td>{{cl }}</td>
+                            {% endfor %}
+                           
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+                 <div class="navigation">
+                        {{ knp_pagination_render(pagination) }}
+                    </div>
+            </div>
+                     
+                    
+        </div>
+
+
+          <style>
+                .navigation > .pagination {
+                    width:160px;
+                    display:flex;
+                    justify-content:space-between;
+                }
+                .navigation > .pagination > * {
+                    padding:0.5rem;
+                    background: purple;
+                    color:white;
+                    
+
+                }
+            </style>
+
+{% endblock %}

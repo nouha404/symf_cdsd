@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+
+
+
+{% block content %}
+    <div class="easion-card-title">
+        Nouvelle Inscription
+    </div>
+    
+    <div class="col-12">
+            <div class="card my-4">
+                {{ form_start(form) }}
+                 
+                {{ form_row(form.classe) }} 
+
+                <div class="mb-3">
+                    <label for="" class="form-label">Nom et Prenom</label>
+                    {{ form_widget(form.etudiant.nomComplet) }}
+                </div>
+                <div class="mb-3">
+                    <label for="" class="form-label">Date de naissance</label>
+                    {{ form_widget(form.etudiant.dateNaissanceAt) }}
+                </div>
+
+                <div class="mb-3">
+                    <label for="" class="form-label">Email</label>
+                    {{ form_widget(form.etudiant.email) }}
+                </div>
+
+                <div class="mb-3">
+                    <label for="" class="form-label">Tuteur</label>
+                    {{ form_widget(form.etudiant.tuteur) }}
+                </div>
+
+                 <div class="mb-3">
+                    <label for="" class="form-label">Password</label>
+                    {{ form_widget(form.etudiant.password) }}
+                </div>
+                
+
+                {{ form_end(form) }}
+            </div>
+
+         
+
+{% endblock %}
+
+

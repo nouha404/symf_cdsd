@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Enregistrer Cours
+{% endblock %}
+
+{% block titlenumber %}
+          Enregistrer Cours
+{% endblock %}
+
+{% block content %}
+        <div class="row row min-vh-20 bg-light text-dark">
+        <form class="searchbox" action="GET">
+            <button type="button" class="btn btn-primary">
+              <a href="{{ path('liste_cours') }}" class=" link-light text-decoration-none">Retour</a>
+              </button>
+    </div>
+
+    <div class="card my-4">
+                            {{ form_start(form) }}
+
+                                {{ form_row(form.nombreHeureGlobalAt) }}
+                                {{ form_row(form.nombreHeureEffAt) }}
+                                
+                                {{ form_row(form.nombreHeurePlannifierAt) }}
+                               
+                            {{ form_end(form) }}
+                        </div>
+    
+
+{% endblock %}

@@ -28,6 +28,12 @@ class Professeur extends User
     #[ORM\JoinTable(name: 'professeur_grade')]
     private Collection $grades;
 
+    #[ORM\OneToMany(mappedBy: 'professeur', targetEntity: Cours::class)]
+    private Collection $cours;
+
+    #[ORM\OneToMany(mappedBy: 'professeur', targetEntity: CoursTrue::class)]
+    private Collection $professeur;
+
     public function __construct()
     {
         $this->module = new ArrayCollection();
@@ -35,6 +41,8 @@ class Professeur extends User
         $this->grades = new ArrayCollection();
       
         $this->roles=["ROLE_PROFESSEUR"];
+        $this->cours = new ArrayCollection();
+        $this->professeur = new ArrayCollection();
         
     }
     
@@ -149,6 +157,66 @@ class Professeur extends User
             // set the owning side to null (unless already changed)
             if ($grade->getProfesseur() === $this) {
                 $grade->setProfesseur(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Cours>
+     */
+    public function getCours(): Collection
+    {
+        return $this->cours;
+    }
+
+    public function addCour(Cours $cour): static
+    {
+        if (!$this->cours->contains($cour)) {
+            $this->cours->add($cour);
+            $cour->setProfesseur($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCour(Cours $cour): static
+    {
+        if ($this->cours->removeElement($cour)) {
+            // set the owning side to null (unless already changed)
+            if ($cour->getProfesseur() === $this) {
+                $cour->setProfesseur(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, CoursTrue>
+     */
+    public function getProfesseur(): Collection
+    {
+        return $this->professeur;
+    }
+
+    public function addProfesseur(CoursTrue $professeur): static
+    {
+        if (!$this->professeur->contains($professeur)) {
+            $this->professeur->add($professeur);
+            $professeur->setProfesseur($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProfesseur(CoursTrue $professeur): static
+    {
+        if ($this->professeur->removeElement($professeur)) {
+            // set the owning side to null (unless already changed)
+            if ($professeur->getProfesseur() === $this) {
+                $professeur->setProfesseur(null);
             }
         }
 

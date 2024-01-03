@@ -1,0 +1,78 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Inscription
+{% endblock %}
+
+{% block titlenumber %}
+        Inscription
+{% endblock %}
+
+{% block content %}
+      
+
+      <div class="card-title">
+       
+      </div>
+
+    <div class="row row min-vh-20 bg-light text-dark">
+        <form class="d-flex">
+            <div class="mb-3">
+                <label for="" class="form-label">Classe</label>
+
+                <select class="form-select form-select-lg" name="" id="">
+                    <option selected>All</option>
+                    {% for classe in classes %}
+                           <option value="{{ classe.id }}">{{classe.nomClasse}}</option>
+                    {% endfor %}
+                    
+                 
+                </select>
+            </div>
+        </form>
+    </div>
+
+
+    <div class="col-12">
+            <div class="card my-4">
+            <div class=".easion-card-title">
+            Liste des inscrits en {{ app.session.get('anneEnCour').libelle }}
+            </div>
+
+                <table class="table table-dark">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Etudiant</th>
+                            <th scope="col">Classe</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        {% for data in datas %}
+                            <tr>
+                                <th scope="row">{{data.id}}</th>
+                                <td>{{data.etudiant.nomComplet}}</td>
+                                <td>{{data.classe.nomClasse}}</td>
+                                <td>
+                                    <div class="row row min-vh-20 bg-light text-dark">
+                                       
+                                    </div>
+                                </td>   
+                            </tr>
+                            
+                        {% endfor %}
+                    </tbody>
+                    </table>
+                     <div class="navigation">
+                       
+                    </div>
+                    
+            </div>
+
+{% endblock %}
+
+
+
+
+ 

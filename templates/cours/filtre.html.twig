@@ -1,0 +1,27 @@
+<form method="GET" action="{{ path('app_cours') }}">
+    <label for="semestre">Filtrer par semestre:</label>
+    <select name="semestre" id="semestre">
+        {# Incluez ici les options de semestre dynamiquement #}
+        {% for semestre in semestres %}
+            <option value="{{ semestre.id }}">{{ semestre.libelle }}</option>
+        {% endfor %}
+    </select>
+
+    <label for="professeur">Filtrer par professeur:</label>
+    <select name="professeur" id="professeur">
+        {# Incluez ici les options de professeur dynamiquement #}
+        {% for professeur in professeurs %}
+            <option value="{{ professeur.id }}">{{ professeur.nomComplet }}</option>
+        {% endfor %}
+    </select>
+
+    <label for="classe">Filtrer par classe:</label>
+    <select name="classe" id="classe">
+        {# Incluez ici les options de classe dynamiquement #}
+        {% for classe in classes %}
+            <option value="{{ classe.id }}">{{ classe.nom }}</option>
+        {% endfor %}
+    </select>
+
+    <button type="submit">Filtrer</button>
+</form>

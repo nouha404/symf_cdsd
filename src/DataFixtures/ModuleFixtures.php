@@ -29,7 +29,7 @@ class ModuleFixtures extends Fixture implements DependentFixtureInterface
             $module = new Module();
             //$moduleReference = "Module" . $i;
             
-            $refProfesseur=rand(0,3);
+            $refProfesseur = rand(0, 9);
             $professeur = $this->getReference("Professeur". $refProfesseur);
 
           

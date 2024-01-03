@@ -28,9 +28,17 @@ class Module
     #[ORM\ManyToMany(targetEntity: Classe::class, mappedBy: 'module')]
     private Collection $classes;
 
+    #[ORM\OneToMany(mappedBy: 'module', targetEntity: Cours::class)]
+    private Collection $cours;
+
+    #[ORM\OneToMany(mappedBy: 'module', targetEntity: CoursTrue::class)]
+    private Collection $module;
+
     public function __construct()
     {
         $this->classes = new ArrayCollection();
+        $this->cours = new ArrayCollection();
+        $this->module = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -103,5 +111,65 @@ class Module
     public function __toString()
     {
         return $this->libelle;
+    }
+
+    /**
+     * @return Collection<int, Cours>
+     */
+    public function getCours(): Collection
+    {
+        return $this->cours;
+    }
+
+    public function addCour(Cours $cour): static
+    {
+        if (!$this->cours->contains($cour)) {
+            $this->cours->add($cour);
+            $cour->setModule($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCour(Cours $cour): static
+    {
+        if ($this->cours->removeElement($cour)) {
+            // set the owning side to null (unless already changed)
+            if ($cour->getModule() === $this) {
+                $cour->setModule(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, CoursTrue>
+     */
+    public function getModule(): Collection
+    {
+        return $this->module;
+    }
+
+    public function addModule(CoursTrue $module): static
+    {
+        if (!$this->module->contains($module)) {
+            $this->module->add($module);
+            $module->setModule($this);
+        }
+
+        return $this;
+    }
+
+    public function removeModule(CoursTrue $module): static
+    {
+        if ($this->module->removeElement($module)) {
+            // set the owning side to null (unless already changed)
+            if ($module->getModule() === $this) {
+                $module->setModule(null);
+            }
+        }
+
+        return $this;
     }
 }

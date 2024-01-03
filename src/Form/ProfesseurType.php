@@ -10,7 +10,9 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 
 class ProfesseurType extends AbstractType
 {
@@ -19,6 +21,7 @@ class ProfesseurType extends AbstractType
         $builder
             ->add('nomComplet')
             ->add('email')
+            
             ->add('module', EntityType::class,[
                 "class"=>Module::class,
                 "expanded"=>true,
@@ -46,6 +49,9 @@ class ProfesseurType extends AbstractType
                 "expanded"=>true,
                 "multiple"=>true,
             ])
+            /*->add('password',PasswordType::class,[
+                
+                ])*/
 
             ->add('btnSave', submitType::class,[
                 "label"=> "Enregistrer",
@@ -54,6 +60,8 @@ class ProfesseurType extends AbstractType
                 ]
             
             ])
+
+            
         ;
     }
 

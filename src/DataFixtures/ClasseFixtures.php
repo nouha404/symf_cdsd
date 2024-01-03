@@ -20,7 +20,7 @@ class ClasseFixtures extends Fixture implements DependentFixtureInterface
       public function load(ObjectManager $manager): void
        {
        
-        for ($i=0; $i <10 ; $i++) { 
+        for ($i=1; $i <=10 ; $i++) { 
             $data = new Classe();
             $refNiveau=rand(0,2);
             $refFiliere=rand(0,3);
@@ -36,6 +36,7 @@ class ClasseFixtures extends Fixture implements DependentFixtureInterface
                 $data->setFiliere($filiere);
                 $data->setNiveau($niveau);
                 $data->setIsArchived(false);
+                $this->addReference("Classe".$i,$data);
                 $manager->persist($data);//insertion
               }else{
                 $i--;

@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+    <h2>Données de l'étudiant</h2>
+
+    {% if etudiant is not null %}
+        <h3>Matricule: {{ etudiant.matricule }}</h3>
+        <h3>Nom: {{ etudiant.nomComplet }}</h3>
+    {% else %}
+        <p>Aucune donnée d'étudiant disponible.</p>
+    {% endif %}
+    
+    {% if ancienneClasse is not null %}
+        <h3 id="classe-info">Ancienne Classe : {{ ancienneClasse.nomClasse }}</h3>
+    {% else %}
+        <p>Aucune ancienne classe disponible.</p>
+    {% endif %}
+    
+    
+{% endblock %}

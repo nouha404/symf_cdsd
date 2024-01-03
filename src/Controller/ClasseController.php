@@ -27,7 +27,7 @@ class ClasseController extends AbstractController
         $filtres= [
             'isArchived'=>false
         ];
-
+        
         if($form->isSubmitted()){
             //recuperer l'objet et testé si c'est difereent de null
             if($form->get("niveau")->getData()!=null){

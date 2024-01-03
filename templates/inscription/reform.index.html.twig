@@ -1,0 +1,84 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+    <h2>Reinscription</h2>
+
+    {{ form_start(form) }}
+        <div class="mb-3">
+                    <label for="" class="form-label">matricule</label>
+                    {{ form_widget(form.matricule) }}
+                    
+                </div>
+    {{ form_end(form) }}
+
+
+       
+    {% if etudiant is not null %}
+
+             
+
+            <h3>Matricule: {{ etudiant.matricule }}</h3>
+            <h3>Nom: {{ etudiant.nomComplet }}</h3>
+
+            {% if ancienneClasse is not null %}
+                <h3 id="classe-info">Classe :{{ ancienneClasse.nomClasse }}</h3>
+                
+            {% endif %}
+    
+
+
+
+        {{ form_start(newClasseForm, {'attr': {'id': 'reinscription-form'}}) }}
+            {# Affichez le formulaire pour la nouvelle classe #}
+           
+                
+             <div class="mb-3">
+                
+                         <div class="mb-3">
+                            <label for="" class="form-label">Classe</label>
+                            {% if classesNiveau is not empty %}
+                                <div class="form-group">
+                                    
+                                    <select class="form-control" id="classe-select" name="selection">
+                                        {% for classe in classesNiveau %}
+                                            <option value="{{ classe.id }}">{{ classe.nomClasse }}</option>
+                                        {% endfor %}
+                                        {% for suivant in classeSuivant %}
+                                            <option value="{{ suivant.id }}">{{ suivant.nomClasse }}</option>
+                                        {% endfor %}
+                                      
+                                    </select>
+                                </div>
+                            {% endif %}
+                        </div>
+                   <input type="hidden" name="reinscription_matricule" value="{{ etudiant.matricule }}">
+           
+        {{ form_end(newClasseForm) }}
+
+         
+         <button type="submit" id="newclasse_btnSave" name="last-btn" class="btn btn-danger btn-sm float-center btn">REINSCRIRE</button>
+      
+     
+         
+        
+    {% endif %}
+
+
+    {% if not isMatricule %}
+                 <div class="p-3 mb-2 bg-danger text-white">
+                    <p>Matricule non trouvé.</p>
+                </div>
+                
+            {% endif %}
+    
+   
+
+
+  
+
+
+    
+{% endblock %}
+
+
+

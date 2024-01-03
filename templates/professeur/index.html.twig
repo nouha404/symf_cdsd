@@ -21,6 +21,8 @@
        <div class="col-12">
             <div class="card my-4">
                 {{ form_start(form) }}
+                    
+
                           {{ form_row(form.grade) }}
                             {{ form_row(form.classe) }}
                             {{ form_widget(form.btnSaved) }}
@@ -34,6 +36,11 @@
         <form class="searchbox" action="GET">
             <button type="button" class="btn btn-primary">
               <a href="{{ path('app_professeur_save') }}" class=" link-light text-decoration-none">Nouveau</a>
+              </button>
+
+            <button type="button" class="btn btn-primary mx-5">
+             
+                <a href="{{ path('app_professeur_reinscription') }}" class="mx-5 link-light text-decoration-none">Reinscription</a>
             </button>
         </form>
     </div>
@@ -69,6 +76,7 @@
                             </td>
 
                                 <td>
+                                    
                                      {% for classe in professeur.classe %}
                                         {{ classe.nomClasse }}
                                     {% endfor %}

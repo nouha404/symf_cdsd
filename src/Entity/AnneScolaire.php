@@ -24,9 +24,17 @@ class AnneScolaire
     #[ORM\OneToMany(mappedBy: 'anneScolaire', targetEntity: Inscription::class)]
     private Collection $inscriptions;
 
+    #[ORM\OneToMany(mappedBy: 'anneScolaire', targetEntity: Cours::class)]
+    private Collection $cours;
+
+    #[ORM\OneToMany(mappedBy: 'anneScolaire', targetEntity: CoursTrue::class)]
+    private Collection $annescolaire;
+
     public function __construct()
     {
         $this->inscriptions = new ArrayCollection();
+        $this->cours = new ArrayCollection();
+        $this->annescolaire = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -82,6 +90,66 @@ class AnneScolaire
             // set the owning side to null (unless already changed)
             if ($inscription->getAnneScolaire() === $this) {
                 $inscription->setAnneScolaire(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Cours>
+     */
+    public function getCours(): Collection
+    {
+        return $this->cours;
+    }
+
+    public function addCour(Cours $cour): static
+    {
+        if (!$this->cours->contains($cour)) {
+            $this->cours->add($cour);
+            $cour->setAnneScolaire($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCour(Cours $cour): static
+    {
+        if ($this->cours->removeElement($cour)) {
+            // set the owning side to null (unless already changed)
+            if ($cour->getAnneScolaire() === $this) {
+                $cour->setAnneScolaire(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, CoursTrue>
+     */
+    public function getAnnescolaire(): Collection
+    {
+        return $this->annescolaire;
+    }
+
+    public function addAnnescolaire(CoursTrue $annescolaire): static
+    {
+        if (!$this->annescolaire->contains($annescolaire)) {
+            $this->annescolaire->add($annescolaire);
+            $annescolaire->setAnneScolaire($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAnnescolaire(CoursTrue $annescolaire): static
+    {
+        if ($this->annescolaire->removeElement($annescolaire)) {
+            // set the owning side to null (unless already changed)
+            if ($annescolaire->getAnneScolaire() === $this) {
+                $annescolaire->setAnneScolaire(null);
             }
         }
 

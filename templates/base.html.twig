@@ -42,10 +42,10 @@
       <a class="navbar-brand m-0" href=" https://demos.creative-tim.com/material-dashboard/pages/dashboard " target="_blank">
         <img src="{{ asset('img/logo-ct.png') }}" class="navbar-brand-img h-100" alt="main_logo">
         <span class="ms-1 font-weight-bold text-white">
-          {% if app.user is defined %}
-        <span class="ms-1 font-weight-bold text-white"></span>
-        {% endif %}
+        
+        <span class="ms-1 font-weight-bold text-white">{{ app.user.nomComplet }} </span>
 
+        
         
         </span>
       </a>
@@ -62,10 +62,16 @@
                     --> 
                     <div class="">
                         <a href="{{path('app_classe')}}" class="dash-nav-dropdown-item link-warning ext-decoration-none"> Classe</a>
-                        <a href="{{ path('app_professeur') }}" class="dash-nav-dropdown-item link-warning ext-decoration-none">Professeur</a>
-                        <a href="#"  class="dash-nav-dropdown-item link-warning ">Module</a>
-                        <a href="#" class="dash-nav-dropdown-item link-warning">Niveau</a>
-                        <a href="#" class="dash-nav-dropdown-item link-warning">Filiere</a>
+                        {% if is_granted('ROLE_AC') or is_granted('ROLE_RP') %}
+                          <a href="{{ path('app_professeur') }}" class="dash-nav-dropdown-item link-warning ext-decoration-none">Professeur</a>
+                          <a href="{{ path('liste_cours') }}"  class="dash-nav-dropdown-item link-warning ">Cours</a>
+                        {% endif %}
+    
+
+                          <!--
+                            <a href="#" class="dash-nav-dropdown-item link-warning">Niveau</a>
+                            <a href="#" class="dash-nav-dropdown-item link-warning">Filiere</a>
+                        --> 
                     </div>
                     <!--
                     <div class="dash-nav-dropdown-menu">
@@ -108,9 +114,32 @@
           <div class="ms-md-auto pe-md-3 d-flex align-items-center">
             <div class="input-group input-group-outline">
                         <a href="{{ path('app_logout') }}" class="dash-nav-dropdown-item link-warning ext-decoration-none">
-              <i class="fas fa-sign-out-alt"></i> Déconnexion
-          </a>
+                          <i class="fas fa-sign-out-alt"></i> Déconnexion
+                       </a>
+                       
+                    <form method="POST" action="{{ path('app_inscription') }}" >
+                      <div class="mb-3">
+                        <label for="" class="form-label">Annee</label>
+                        <select class="form-select form-select-lg" name="annee" id="">
 
+                          {% for annne in app.session.get("annees") %}
+                            
+                            <option {% if annne.id==app.session.get("anneEnCour").id %}selected {% endif %}
+                            value="{{ annne.id}}">{{annne.libelle }}
+                            </option>
+                          {% endfor %}
+                          
+                        </select>
+                        
+                      </div>
+                      
+                      <button name="btn-changed" type="submit" class="btn btn-outline-primary" >
+                        Filtre
+                      </button>
+                    
+                      
+                      
+                    </form>
             </div>
           </div>
           
@@ -126,18 +155,18 @@
     <!-- End Navbar -->
     <div class="container-fluid py-4">
       <div class="row min-vh-80 h-100">
-        <div class="col-12">
+      
         {% block content %}
           
         {% endblock %}
           
-        </div>
+        </div
     </div>
     
   </div>
   </main>
   
-  
+
 
   
   

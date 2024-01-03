@@ -14,12 +14,12 @@ class Inscription
     private ?int $id = null;
 
     #[ORM\Column]
-    private ?\DateTimeImmutable $createAt = null;
+    private ?\DateTimeImmutable $createAt = null ;
 
     #[ORM\Column]
-    private ?bool $isArchived = null;
+    private ?bool $isArchived = false;
 
-    #[ORM\ManyToOne(inversedBy: 'inscriptions')]
+    #[ORM\ManyToOne(inversedBy: 'inscriptions',cascade:["persist"])]
     private ?Etudiant $etudiant = null;
 
     #[ORM\ManyToOne(inversedBy: 'inscriptions')]
@@ -27,6 +27,12 @@ class Inscription
 
     #[ORM\ManyToOne(inversedBy: 'inscriptions')]
     private ?AnneScolaire $anneScolaire = null;
+
+
+    public function __construct()
+    {
+        $this->createAt = new \DateTimeImmutable();
+    }
 
     public function getId(): ?int
     {

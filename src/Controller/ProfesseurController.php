@@ -29,7 +29,10 @@ class ProfesseurController extends AbstractController
          
         $grades=[];
         $classes=[];
-      
+         $filtres= [
+            'isArchived'=>false
+        ];
+
         
          if($form->isSubmitted()){
 
@@ -37,27 +40,27 @@ class ProfesseurController extends AbstractController
             $classes = $form->get("classe")->getData();
             if (!empty($grades) ) {
                 // Ajouter le niveau dans le filtre
-                $professeurs = $professeurRepository->findByFilters($grades);
-            } elseif($classes){
-                $professeurs = $professeurRepository->findBy(['classe' => $classes]);
+                $filtres['grades'] = $grades;
+                //$professeurs = $professeurRepository->findByFilters($grades);
+            } elseif(!empty($classes)){
+                $filtres['classe'] = $classes;
+                //$professeurs = $professeurRepository->findOneBy(['classe' => $classes, 'isArchived' => false]);
             }
             else {
                 // Si aucun grade n'est sélectionné, vous pouvez récupérer tous les professeurs
-                $professeurs = $professeurRepository->findAll();
+                
             }
             
             
           
         }
+      
 
+      
 
         $professeurs = $professeurRepository->findByFilters($grades);
-        
-        //gerer le cas ou grade et classes sont vides
-        /*if(empty($grades) && empty($classe)){
-            $professeurs = $professeurRepository->findAll();
-        }*/
-        
+       
+       
         
          //pagination
          // Avant le retour dans votre méthode index
@@ -85,12 +88,14 @@ class ProfesseurController extends AbstractController
     public function saveAndUpdate($id,Request $request, EntityManagerInterface $manager,ProfesseurRepository $professeurRepository): Response
     {
 
-        $professeur = $professeurRepository->find($id);
         
         
         if($id== null){
             $professeur = new Professeur();
-        } 
+        } else {
+            $professeur = $professeurRepository->find($id);
+        
+        }
         
 
         //creation du formulaire et le mapper a l'objet classe
@@ -107,6 +112,7 @@ class ProfesseurController extends AbstractController
 
             $manager->persist($professeur);
             $manager->flush();
+            return $this->redirectToRoute('app_professeur');
 
         }
         

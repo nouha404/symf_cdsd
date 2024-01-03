@@ -24,9 +24,13 @@ class Niveau
     #[ORM\OneToMany(mappedBy: 'niveau', targetEntity: Classe::class)]
     private Collection $classes;
 
+    #[ORM\OneToMany(mappedBy: 'niveau', targetEntity: Semestre::class)]
+    private Collection $semestres;
+
     public function __construct()
     {
         $this->classes = new ArrayCollection();
+        $this->semestres = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -91,5 +95,35 @@ class Niveau
     public function __toString()
     {
         return $this->libelle;
+    }
+
+    /**
+     * @return Collection<int, Semestre>
+     */
+    public function getSemestres(): Collection
+    {
+        return $this->semestres;
+    }
+
+    public function addSemestre(Semestre $semestre): static
+    {
+        if (!$this->semestres->contains($semestre)) {
+            $this->semestres->add($semestre);
+            $semestre->setNiveau($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSemestre(Semestre $semestre): static
+    {
+        if ($this->semestres->removeElement($semestre)) {
+            // set the owning side to null (unless already changed)
+            if ($semestre->getNiveau() === $this) {
+                $semestre->setNiveau(null);
+            }
+        }
+
+        return $this;
     }
 }
