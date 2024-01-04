@@ -65,6 +65,8 @@
                         {% if is_granted('ROLE_AC') or is_granted('ROLE_RP') %}
                           <a href="{{ path('app_professeur') }}" class="dash-nav-dropdown-item link-warning ext-decoration-none">Professeur</a>
                           <a href="{{ path('liste_cours') }}"  class="dash-nav-dropdown-item link-warning ">Cours</a>
+                          <a href="{{ path('liste_plannification') }}"  class="dash-nav-dropdown-item link-warning ">Plannifier un cours</a>
+                          <a href="{{ path('app_inscription') }}"  class="dash-nav-dropdown-item link-warning ">Inscription</a>
                         {% endif %}
     
 

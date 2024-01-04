@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\PlannificationRepository;
 use Doctrine\ORM\Mapping as ORM;
+use DateTimeInterface;
 
 #[ORM\Entity(repositoryClass: PlannificationRepository::class)]
 class Plannification
@@ -13,20 +14,22 @@ class Plannification
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column]
-    private ?\DateTimeImmutable $dateAt = null;
+  
+    #[ORM\Column(type: 'datetime')]
+    
+    private ?\DateTimeInterface $dateAt = null;
+
+    #[ORM\Column(type:"time", nullable:true)]
+    private ?\DateTimeInterface $heureDebutAt = null;
+
+    #[ORM\Column(type:"time", nullable:true)]
+    private ?\DateTimeInterface $heureFinAt = null;
 
     #[ORM\Column]
-    private ?\DateTimeImmutable $heureDebutAt = null;
+    private ?bool $isActived = false;
 
     #[ORM\Column]
-    private ?\DateTimeImmutable $heureFinAt = null;
-
-    #[ORM\Column]
-    private ?bool $isActived = null;
-
-    #[ORM\Column]
-    private ?bool $isEtat = null;
+    private ?bool $isEtat = false;
 
     #[ORM\ManyToOne(inversedBy: 'plannification')]
     private ?Cours $cours = null;
@@ -39,37 +42,40 @@ class Plannification
         return $this->id;
     }
 
-    public function getDateAt(): ?\DateTimeImmutable
+    public function getDateAt(): ?\DateTimeInterface
     {
         return $this->dateAt;
     }
 
-    public function setDateAt(\DateTimeImmutable $dateAt): static
+    public function setDateAt(\DateTimeInterface $dateAt): static
     {
+       
         $this->dateAt = $dateAt;
 
         return $this;
     }
 
-    public function getHeureDebutAt(): ?\DateTimeImmutable
+    public function getHeureDebutAt(): ?\DateTimeInterface
     {
         return $this->heureDebutAt;
     }
 
-    public function setHeureDebutAt(\DateTimeImmutable $heureDebutAt): static
+    public function setHeureDebutAt(\DateTimeInterface $heureDebutAt): static
     {
+       
         $this->heureDebutAt = $heureDebutAt;
 
         return $this;
     }
 
-    public function getHeureFinAt(): ?\DateTimeImmutable
+    public function getHeureFinAt(): ?\DateTimeInterface
     {
         return $this->heureFinAt;
     }
 
-    public function setHeureFinAt(\DateTimeImmutable $heureFinAt): static
+    public function setHeureFinAt(\DateTimeInterface $heureFinAt): static
     {
+        
         $this->heureFinAt = $heureFinAt;
 
         return $this;

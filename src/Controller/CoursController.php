@@ -25,7 +25,7 @@ use Symfony\Component\Form\Extension\Core\DataTransformer\DateTimeToStringTransf
 
 class CoursController extends AbstractController
 {
-    #[Route('/add-cours', name: 'app_cours')]
+    #[Route('/add-cours', name: 'app_cours',methods:["GET","POST"])]
     public function index(
         Request $request,
         EntityManagerInterface $manager,

@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+
+
+
+{% block content %}
+    <div class="col-12">
+            <div class="card my-4">
+               {{ form_start(form) }}
+
+                {{ form_row(form.dateAt) }}
+                {{ form_row(form.heureDebutAt) }}
+                {{ form_row(form.heureFinAt) }}
+
+                {{ form_end(form) }}
+
+            </div>
+            
+            
+
+         
+
+{% endblock %}
